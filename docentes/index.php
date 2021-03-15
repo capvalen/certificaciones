@@ -1,3 +1,4 @@
+<?php if( !isset($_COOKIE['ckAtiende']) ){ header("Location: ../index.php"); die(); } ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,6 +6,11 @@
 	<?php include "../headers.php"; ?>
 </head>
 <body>
+<style>
+.custom-file-input ~ .custom-file-label::after {
+	content: "Buscar...";
+}
+</style>
 	<div id="app">
 		<div id="contenedorPrincipal">
 			<div class="container">
@@ -29,7 +35,7 @@
 							<td>{{docente.cargo}}</td>
 							<td>{{docente.area}}</td>
 							<td><img :src="docente.firma" style="width:50px;" @click="llamarFoto($event)" ></td>
-							<td><button class="btn btn-outline-primary btn-sm" @click="editarDocente(docente.id);"><i class="bi bi-arrow-up-square"></i></button></td>
+							<td><button class="btn btn-outline-primary btn-sm" @click="editarDocente(docente.id);"><i class="bi bi-brush"></i></button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -57,9 +63,15 @@
 						</div>
 						<div class="form-group" v-if="docActual.firma==''">
 							<label >Firma</label>
-							<input type="file" class="form-control"  ref="archivoASubir" accept="image/*" />
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" ref="archivoASubir" accept="image/*" >
+									<label class="custom-file-label" for="cargarExcel">Buscar firma</label>
+								</div>
+							</div>
 						</div>
-						<div class='d-flex justify-content-end'>
+						<div class='d-flex justify-content-between'>
+							<button v-if="!crearDoc" type='button' class='btn btn-outline-danger' data-dismiss="modal" @click="borrarDocente()"><i class="bi bi-trash"></i> Eliminar Docente</button>
 							<button v-if="!crearDoc" type='button' class='btn btn-outline-primary' data-dismiss="modal" @click="uploadFile"><i class="bi bi-save"></i> Guardar cambios</button>
 							<button v-else type='button' class='btn btn-outline-primary' data-dismiss="modal" @click="registrarDocente"><i class="bi bi-save"></i> Registrar Docente</button>
 						</div>
@@ -100,6 +112,7 @@
 		},
 		methods:{
 			editarDocente(idDoc){
+				this.crearDoc=false;
 				let indice = this.docentes.map(doce => doce.id).indexOf(idDoc);
 				this.docActual.id=this.docentes[indice].id;
 				this.docActual.nombre=this.docentes[indice].nombre;
@@ -177,11 +190,15 @@
 			},
 			crearDocente(){
 				this.crearDoc=true;
+				this.limpiarActgual()	
+				$('#modalEditarDocente').modal('show');
+			},
+			limpiarActgual(){
 				this.docActual.nombre='';
 				this.docActual.cargo='';
 				this.docActual.area='';
 				this.docActual.firma='';
-				$('#modalEditarDocente').modal('show');
+				this.docActual.id='';
 			},
 			registrarDocente(){
 				this.archivo = this.$refs.archivoASubir.files[0];
@@ -210,12 +227,29 @@
 					.catch(function (error) { console.log(error); });
 				}
 				
+			},
+			borrarDocente(){
+				axios.post('php/borrarDocente.php', {idDocente: this.docActual.id })
+				.then(function (response) { console.log( response.data );
+					if(response.data=='ok'){
+						let indice =  app.docentes.map(doce => doce.id).indexOf( app.docActual.id );
+						app.docentes.splice(indice, 1);
+						app.limpiarActgual()
+					}
+				})
+				.catch(function (error) { console.log(error); });
 			}
 		},
 		mounted(){
 			this.solicitarDocentes();
 		}
+	});
+	$('#app').on('change','.custom-file-input',function(){
+		
+    let fileName = $(this).val().split('\\').pop(); 
+   $(this).next('.custom-file-label').addClass("selected").html(fileName);
 	})
+	
 	
 </script>
 

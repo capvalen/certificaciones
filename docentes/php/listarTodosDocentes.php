@@ -2,7 +2,7 @@
 
 include "../../conectkarl.php";
 
-$sql="SELECT * FROM `docentes` where docActivo=1";
+$sql="SELECT * FROM `docentes` where docActivo=1 order by docNombres asc";
 $resultado=$cadena->query($sql);
 $docentes = array();
 while($row=$resultado->fetch_assoc()){ 
