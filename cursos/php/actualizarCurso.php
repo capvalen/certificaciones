@@ -20,7 +20,8 @@ $sql="UPDATE `cursos` SET
 `curRegistros`='{$cursoActual['registro']}',
 `curTomo`='{$cursoActual['tomo']}',
 `curCodigo`='{$cursoActual['codigo']}',
-`curFondo`='{$cursoActual['fondo']}'
+`curFondo`='{$cursoActual['fondo']}',
+`curCopia`='{$cursoActual['copia']}'
 where idCurso = {$cursoActual['id']}; ";
 //echo $sql;
 if($resultado=$cadena->query($sql)){ 

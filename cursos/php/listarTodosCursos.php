@@ -23,7 +23,8 @@ while($row=$resultado->fetch_assoc()){
 		'registro' => $row['curRegistros'],
 		'tomo' => $row['curTomo'],
 		'codigo' => $row['curCodigo'],
-		'fondo' => $row['curFondo']
+		'fondo' => $row['curFondo'],
+		'copia' => $row['curCopia'],
 
 	);
 }

@@ -20,7 +20,7 @@ $donde= $_SERVER['PHP_SELF'];
 <!-- As a heading -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4" style="background-color: #1c1e1f!important;">
 	<div class="container">
-		<a class="navbar-brand" href="#">INAPROF - Sist. Certificados</a>
+		<a class="navbar-brand" href="#"> <img src="https://inaprof.com/wp-content/uploads/2020/05/inaprof_blanco_peque2.png" class="img-fluid"> Sist. Certificados</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -32,7 +32,11 @@ $donde= $_SERVER['PHP_SELF'];
 				<li class="nav-item ">
 					<a class="nav-link" href="<?= $rutaServidor."/docentes"; ?>">Docentes</a>
 				</li>
-		
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item ">
+					<a class="nav-link" href="<?= $rutaServidor."/php/desconectar.php"; ?>"><i class="bi bi-x-square"></i> Salir</a>
+				</li>
 			</ul>
 		
 		</div>

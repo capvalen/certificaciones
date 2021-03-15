@@ -181,7 +181,7 @@
 		el: '#app',
 		data: {
 			cursos: [],
-			curActual: {id:'', nombre: '', ponenteId:'', ponente:'', fechaIntervalo:'', fechaGeneracion:'', horas:'', firma1:'', firma2:'', resolucion:'', registro:'', tomo:'', código:'', fondo:''},
+			curActual: {id:'', nombre: '', ponenteId:'', ponente:'', fechaIntervalo:'', fechaGeneracion:'', horas:'', firma1:'', firma2:'', resolucion:'', registro:'', tomo:'', código:'', fondo:'', copia:0},
 			docentes: [],
 			archivoSeleccionado: null,
 			archivo:'', crearDoc:false, fondos:null
@@ -203,6 +203,7 @@
 				this.curActual.tomo = this.cursos[indice].tomo;
 				this.curActual.codigo = this.cursos[indice].codigo;
 				this.curActual.fondo = this.cursos[indice].fondo;
+				this.curActual.copia = this.cursos[indice].copia;
 				$('#modalEditarCurso').modal('show');
 			},
 			llamarFoto(eve){
@@ -240,6 +241,7 @@
 						this.cursos[indice].tomo = this.curActual.tomo;
 						this.cursos[indice].codigo = this.curActual.codigo;
 						this.cursos[indice].fondo = this.curActual.fondo;
+						this.cursos[indice].copia = this.curActual.copia;
 					}
 				})
 				.catch(function(error){ console.log( error ); })	
@@ -307,36 +309,44 @@
 				this.curActual.tomo='';
 				this.curActual.codigo='';
 				this.curActual.fondo="";
+				this.curActual.copia=0;
 			},
-			registrarCurso(){
-				this.archivo = this.$refs.archivoASubir.files[0];
-				if( this.$refs.archivoASubir.files.length==0 ){
-					axios.post('php/crearCurso.php', { curActual: this.curActual })
+			creaCurso(){
+				axios.post('php/crearCurso.php', { curActual: this.curActual })
 					.then(function (response) { console.log( response.data );
 						app.curActual.id = response.data;
 						app.llenarValoresActual(response.data);
 					})
 					.catch(function (error) { console.log(error); });
+			},
+			registrarCurso(){
+				if(this.curActual.copia==1){
+					this.creaCurso();
 				}else{
-					let formData = new FormData();
-					formData.append('file', this.archivo);
-					formData.append('numero', 9);
-	
-					axios.post('php/copiarFondo.php', formData,{
-						headers: { 'Content-Type': 'multipart/form-data' }
-					})
-					.then(function (response) { console.log( response.data );
-						app.curActual.fondo = response.data;
+					this.archivo = this.$refs.archivoASubir.files[0];
+					if( this.$refs.archivoASubir.files.length==0 ){
+						this.creaCurso();
+					}else{
+						let formData = new FormData();
+						formData.append('file', this.archivo);
+						formData.append('numero', 9);
+		
+						axios.post('php/copiarFondo.php', formData,{
+							headers: { 'Content-Type': 'multipart/form-data' }
+						})
+						.then(function (response) { console.log( response.data );
+							app.curActual.fondo = response.data;
 
-						axios.post('php/crearCurso.php', { curActual: app.curActual })
-						.then(function (respuesta) { console.log( respuesta.data );
-							app.curActual.id = response.data;
-							app.llenarValoresActual(respuesta.data);
+							axios.post('php/crearCurso.php', { curActual: app.curActual })
+							.then(function (respuesta) { console.log( respuesta.data );
+								app.curActual.id = response.data;
+								app.llenarValoresActual(respuesta.data);
+							})
+							.catch(function (error) { console.log(error); });
+
 						})
 						.catch(function (error) { console.log(error); });
-
-					})
-					.catch(function (error) { console.log(error); });
+					}
 				}
 				
 			},
@@ -368,6 +378,7 @@
 					tomo: this.curActual.tomo,
 					codigo: this.curActual.codigo,
 					fondo: this.curActual.fondo,
+					copia: this.curActual.copia
 				})
 			},
 			abrirGaleria(){
@@ -387,21 +398,31 @@
 			seleccionarFondo(){
 				const imag= document.querySelector('img.activo');
 				const ruta = imag.getAttribute('src');
-				axios.post('php/actualizarFondoCopiado.php', {fondo: ruta, id: this.curActual.id})
-				.then(response=>{ //console.log( response.data );
-					if(response.data =='ok'){
-						let indice =  app.cursos.map(cur => cur.id).indexOf( app.curActual.id );
-						app.cursos[indice].fondo=ruta;
-						app.curActual.fondo=ruta;
-					}
-				})
-				.catch(error=>{
-					console.log( error );
-				})
+				if(this.crearDoc){
+					this.curActual.fondo=ruta;
+					this.curActual.copia=1
+				}else{
+					axios.post('php/actualizarFondoCopiado.php', {fondo: ruta, id: this.curActual.id})
+					.then(response=>{ //console.log( response.data );
+						if(response.data =='ok'){
+							let indice =  app.cursos.map(cur => cur.id).indexOf( app.curActual.id );
+							app.curActual.fondo=ruta;
+							app.cursos[indice].fondo=ruta;
+						}
+					})
+					.catch(error=>{
+						console.log( error );
+					})
+				}
 			}
 		},
 		mounted(){
 			this.solicitarCursos();
+		}
+	});
+	$('#app').on('hidden.bs.modal', '#modalGaleria', function () { 
+		if(app.crearDoc){
+			$('#modalEditarCurso').modal('show');
 		}
 	});
 	</script>
