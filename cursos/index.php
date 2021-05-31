@@ -119,7 +119,7 @@
 								<small class="form-text text-muted">Ejm: 2021/DCP.</small>
 							</div>
 							<div class="form-group" v-if="curActual.fondo==''">
-								<label >Fondo <small>Suba un fondo o seleccione uno de la <a class="text-decoration-none" href="#!" data-dismiss="modal" @click="abrirGaleria">galería existente</a></small></label>
+								<label >Fondo <small>Suba un fondo de medidas sugeridas 1300x919 pixeles. O seleccione uno de la <a class="text-decoration-none" href="#!" data-dismiss="modal" @click="abrirGaleria">galería existente</a></small></label>
 								<input type="file" class="form-control"  ref="archivoASubir" accept="image/*" />
 							</div>
 						</div>
