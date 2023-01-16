@@ -5,7 +5,8 @@ $_POST = json_decode(file_get_contents('php://input'),true);
 
 $clavePrivada= 'Es sencillo hacer que las cosas sean complicadas, pero difícil hacer que sean sencillas. Friedrich Nietzsche';
 $local='/';
-$sql="CALL validarSesion('".$_POST['usuario']."' , '".md5($_POST['passw'])."');";
+$sql="SELECT * FROM `usuarios`
+where usuario = '{$_POST['usuario']}' and clave = md5('{$_POST['passw']}') and activo = 1;";
 $log = mysqli_query($cadena, $sql);
 //echo "select * from  usuario u  where usuNick = '".$_POST['user']."' and usuPass='".md5($_POST['pws'])."';";
 

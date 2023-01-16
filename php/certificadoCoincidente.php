@@ -2,24 +2,17 @@
 include '../conectkarl.php';
 
 $_POST = json_decode(file_get_contents('php://input'),true); 
-
-$sql="SELECT * FROM `alumnocurso` where aluDNI ='{$_POST['dni']}' and cursoId={$_POST['idCurso']}";
+$filas = [];
+$sql="SELECT ac.*, c.curTitulo, date_format(c.curFechaGeneracion, '%d/%m/%Y') as curFechaGeneracion FROM `alumnocurso` ac
+inner join cursos c on c.idCurso = ac.cursoId
+where (aluCodPersonalizado = '{$_POST['texto']}'
+or aluDNI = '{$_POST['texto']}'
+or concat( ac.aluDNI , '-', c.curCodigo  ) = '{$_POST['texto']}')
+and aluActivo = 1 and curActivo=1;";
 $resultado=$cadena->query($sql);
-$cantFilas= $resultado->num_rows;
-if($cantFilas ==0){
-	echo 'No existe certificado';
+
+while($row=$resultado->fetch_assoc()){
+	$filas[] = $row;
 }
-else if($cantFilas==1){
-	$row=$resultado->fetch_assoc();
-	$idAlum = base64_encode($row['idAlumno']);
-	echo $_SERVER['SERVER_NAME']."/certificaciones/certificados/index.php?codigo=".urlencode($idAlum);
-
-}
-else if($cantFilas>1){
-	echo "Existe duplicados";
-}
-
-
-
-	
+echo json_encode($filas);
 ?>

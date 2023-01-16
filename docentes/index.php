@@ -15,7 +15,7 @@
 		<div id="contenedorPrincipal">
 			<div class="container">
 				<h1>Panel de Docentes</h1>
-				<p>Listado de docentes en INAPROF:</p>
+				<p>Listado de docentes:</p>
 				<button class="btn btn-outline-primary mb-3" @click="crearDocente()"><i class="bi bi-bookmark-plus"></i> Registrar docente</button>
 				<table class="table table-hover">
 					<thead>
@@ -23,7 +23,7 @@
 							<th>#</th>
 							<th>Nombre</th>
 							<th>Cargo</th>
-							<th>Área</th>
+							<th class="d-none">Área</th>
 							<th>Firma</th>
 							<th>@</th>
 						</tr>
@@ -33,7 +33,7 @@
 							<td>{{index+1}}</td>
 							<td>{{docente.nombre}}</td>
 							<td>{{docente.cargo}}</td>
-							<td>{{docente.area}}</td>
+							<td class="d-none">{{docente.area}}</td>
 							<td><img :src="docente.firma" style="width:50px;" @click="llamarFoto($event)" ></td>
 							<td><button class="btn btn-outline-primary btn-sm" @click="editarDocente(docente.id);"><i class="bi bi-brush"></i></button></td>
 						</tr>
@@ -57,11 +57,11 @@
 							<label >Cargo:</label>
 							<input type="text" class="form-control" id="" v-model="docActual.cargo">
 						</div>
-						<div class="form-group">
+						<div class="form-group d-none">
 							<label >Área</label>
-							<input type="text" class="form-control" id="" v-model="docActual.area">
+							<input type="text" class="form-control " id="" v-model="docActual.area">
 						</div>
-						<div class="form-group" v-if="docActual.firma==''">
+						<div class="form-group" v-show="docActual.firma==''">
 							<label >Firma</label>
 							<div class="input-group mb-3">
 								<div class="custom-file">
@@ -71,9 +71,9 @@
 							</div>
 						</div>
 						<div class='d-flex justify-content-between'>
-							<button v-if="!crearDoc" type='button' class='btn btn-outline-danger' data-dismiss="modal" @click="borrarDocente()"><i class="bi bi-trash"></i> Eliminar Docente</button>
+							<button v-if="!crearDoc" type='button' class='btn btn-outline-danger' data-dismiss="modal" @click="borrarDocente()"><i class="bi bi-trash"></i> Eliminar firma</button>
 							<button v-if="!crearDoc" type='button' class='btn btn-outline-primary' data-dismiss="modal" @click="uploadFile"><i class="bi bi-save"></i> Guardar cambios</button>
-							<button v-else type='button' class='btn btn-outline-primary' data-dismiss="modal" @click="registrarDocente"><i class="bi bi-save"></i> Registrar Docente</button>
+							<button v-else type='button' class='btn btn-outline-primary' data-dismiss="modal" @click="registrarDocente"><i class="bi bi-save"></i> Registrar firma</button>
 						</div>
 
 						<div class="form-group" v-if="docActual.firma!=''">
