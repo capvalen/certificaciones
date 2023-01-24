@@ -92,14 +92,25 @@ $pdf->MultiCell($anchoPag, 15, strtoupper(utf8_decode( $row['nombreAlumno'] )), 
 
 $pdf->SetFont('Times','', 18);
 $pdf->SetXY(10,80);
-$pdf->Cell($anchoPag, 10, utf8_decode('Quien ha culminado y aprobado satisfactoriamente el curso de:'), 0,1, 'C');
+
+if($row['aTipo']=='1'){
+	$pdf->Cell($anchoPag, 10, utf8_decode('Quien ha culminado y aprobado satisfactoriamente el curso de:'), 0,1, 'C');
+}
+if($row['aTipo']=='2'){
+	$pdf->Cell($anchoPag, 10, utf8_decode('Por haber participado satisfactoriamente en el seminario especializado en:'), 0,1, 'C');
+}
 
 $pdf->SetFont('Times','B', 22);
 $pdf->Cell($anchoPag, 10, utf8_decode( $row['curTitulo'] ), 0,1, 'C');
 
 $pdf->SetX(40);
 $pdf->SetFont('Times','', 18);
-$pdf->MultiCell($anchoPag-60, 10, utf8_decode("En el grupo del {$row['curFechaIntervalo']}, obteniendo una nota de ". queNota($row['nota']) ." ({$row['nota']}), acumulando un total de 70 horas académicas."), 0, 'C');
+if($row['aTipo']=='1'){
+$pdf->MultiCell($anchoPag-60, 10, utf8_decode("En el grupo del {$row['curFechaIntervalo']}, obteniendo una nota de ". queNota($row['nota']) ." ({$row['nota']}), acumulando un total de " . $row['curHoras'] ." horas académicas."), 0, 'C');
+}
+if($row['aTipo']=='2'){
+	$pdf->MultiCell($anchoPag-60, 10, utf8_decode("Desarrollado el {$row['curFechaIntervalo']}, organizado por Intesla Education, con un total de " . $row['curHoras'] ." horas académicas."), 0, 'C');
+}
 $pdf->Ln();
 
 $pdf->SetXY(10,130);

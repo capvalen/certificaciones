@@ -1,16 +1,16 @@
 <?php 
 include "../../conectkarl.php";
 
-//var_dump($_POST['alumnado']); die();
+//var_dump($_POST); die();
 $alumnos = $_POST['alumnado'];
 $sql='';
 
 for ($i=0; $i<count($alumnos); $i++ ) {
 	//var_dump($alumnos[$i]['dni']);
 	$sql.="INSERT INTO `alumnocurso`(`idAlumno`, `aluNombre`, `aluDNI`, `cursoId`,
-	nota, correo, aluCodPersonalizado
+	nota, correo, aluCodPersonalizado, aTipo
 	) VALUES (null, '{$alumnos[$i]['nombre']}', '{$alumnos[$i]['dni']}', '{$_POST['idCurso']}',
-	'{$alumnos[$i]['nota']}', '{$alumnos[$i]['correo']}', '{$alumnos[$i]['codPers']}'); ";
+	'{$alumnos[$i]['nota']}', '{$alumnos[$i]['correo']}', '{$alumnos[$i]['codPers']}', '{$_POST['aTipo']}'); ";
 
 
 	if( $alumnos[$i]['correo'] <>'' ){

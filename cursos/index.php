@@ -36,7 +36,7 @@
 							<td><img :src="curso.posterior" style="width:50px;" @click="llamarFoto($event)" ></td>
 							<td>
 								<button class="btn btn-outline-primary btn-sm" @click="editarCurso(curso.id, index);"><i class="bi bi-brush"></i></button>
-								<a class="btn btn-outline-secondary btn-sm" :href="'subirAlumnos.php?idCurso='+ curso.id + '&titulo=' +curso.titulo" ><i class="bi bi-diagram-3-fill"></i></a>
+								<a class="btn btn-outline-secondary btn-sm" :href="'subirAlumnos.php?idCurso='+ curso.id + '&titulo=' +curso.titulo+ '&tipo=' + curso.cTipo" ><i class="bi bi-diagram-3-fill"></i></a>
 							</td>
 					</tr>
 			</tbody>
@@ -82,7 +82,15 @@
 						
 						</div>
 						<div class="col col-md-6">
-						<div class="form-group">
+							<div class="form-group">
+								<label >Tipo:</label>
+								<select name="" id="" class="form-control" v-model="curActual.cTipo">
+									<option value="-1">Seleccione el tipo</option>
+									<option value="1" >Curso</option>
+									<option value="2" >Seminario</option>
+								</select>
+							</div>
+							<div class="form-group">
 								<label >Gerente N° 1</label>
 								<select name="" id="" class="form-control" v-model="curActual.firma1">
 									<option value="-1">Seleccione un docente</option>
@@ -96,7 +104,7 @@
 									<option v-for="docente in docentes" :value="docente.id">{{docente.nombre}}</option>
 								</select>
 							</div>
-							<div class="form-group">
+							<div class="form-group d-none">
 								<label >Aprobado:</label>
 								<input type="text" class="form-control" id="" v-model="curActual.resolucion">
 								<small class="form-text text-muted">Ejm: N° 001-2023.</small>
@@ -190,7 +198,7 @@
 		el: '#app',
 		data: {
 			cursos: [],
-			curActual: {id:'', nombre: '', ponenteId:'', ponente:'', fechaIntervalo:'', fechaGeneracion:'', horas:'', firma1:'', firma2:'', resolucion:'', registro:'', tomo:'', código:'', fondo:'', copia:0, posterior:''},
+			curActual: {id:'', nombre: '', ponenteId:'', ponente:'', fechaIntervalo:'', fechaGeneracion:'', horas:'', firma1:'', firma2:'', resolucion:'', registro:'', tomo:'', código:'', fondo:'', copia:0, posterior:'', cTipo:-1},
 			docentes: [],
 			archivoSeleccionado: null,
 			archivo:'', archivo2:'', archivoPosterior:'', crearDoc:false, fondos:null, queIndex:-1
@@ -216,6 +224,7 @@
 				this.curActual.fondo = this.cursos[indice].fondo;
 				this.curActual.copia = this.cursos[indice].copia;
 				this.curActual.posterior = this.cursos[indice].posterior;
+				this.curActual.cTipo = this.cursos[indice].cTipo;
 				$('#modalEditarCurso').modal('show');
 			},
 			llamarFoto(eve){
@@ -261,6 +270,7 @@
 				this.cursos[indice].tomo = this.curActual.tomo;
 				this.cursos[indice].codigo = this.curActual.codigo;
 				this.cursos[indice].copia = this.curActual.copia;
+				this.cursos[indice].cTipo = this.curActual.cTipo;
 			},
 			borrarFondo(){
 				axios.post('php/eliminarFondo.php', {fondo: this.curActual.fondo, id: this.curActual.id  })
@@ -364,6 +374,8 @@
 				this.curActual.fondo="";
 				this.curActual.posterior="";
 				this.curActual.copia=0;
+				this.curActual.cTipo=-1;
+				
 			},
 			creaCurso(){
 				axios.post('php/crearCurso.php', { curActual: this.curActual })
@@ -437,7 +449,8 @@
 					codigo: this.curActual.codigo,
 					fondo: this.curActual.fondo,
 					copia: this.curActual.copia,
-					posterior: this.curActual.posterior
+					posterior: this.curActual.posterior,
+					cTipo:  this.curActual.cTipo
 				})
 			},
 			abrirGaleria(){

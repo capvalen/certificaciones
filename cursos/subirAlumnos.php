@@ -225,7 +225,8 @@
 			}
 		});
 		$.ajax({url: 'php/cargarAlumnado.php', type: 'POST', data: {
-			alumnado: alumnado, idCurso: <?= $_GET['idCurso']; ?>, nombreCurso: app.nombreCurso
+			alumnado: alumnado, idCurso: <?= $_GET['idCurso']; ?>, nombreCurso: app.nombreCurso,
+			aTipo : "<?= $_GET['tipo']?>"
 		}}).done(function(resp) {
 			console.log(resp)
 			document.getElementById("overlay").style.display = "none";
@@ -239,7 +240,7 @@
 		el: '#app',
 		data: {
 			alumnos:[],
-			personalizado:'', idAlumnoSelect:'', nombreCurso:'', nota:'', dni:'',
+			personalizado:'', idAlumnoSelect:'', nombreCurso:"<?= $_GET['titulo']?>", nota:'', dni:'',
 			asistente:''
 		},
 		methods:{
@@ -247,7 +248,6 @@
 				axios.post('php/listarAlumnosCurso.php', {idCurso: <?= $_GET['idCurso']; ?>} )
 				.then(function(respuesta){ console.log( respuesta.data );
 					app.alumnos = respuesta.data;
-					app.nombreCurso = app.alumnos[0].curTitulo;
 				})
 				.catch(function(error){ console.log( error ); })
 				

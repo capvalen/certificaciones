@@ -26,6 +26,7 @@ while($row=$resultado->fetch_assoc()){
 		'fondo' => $row['curFondo'],
 		'copia' => $row['curCopia'],
 		'posterior' => $row['posterior'],
+		'cTipo' => $row['cTipo'],
 
 	);
 }
