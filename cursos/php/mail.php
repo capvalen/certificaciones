@@ -23,10 +23,10 @@ try {
     //Server settings
     $mail->SMTPDebug = false;                      // Enable verbose debug output --SMTP::DEBUG_SERVER
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = '**';                    // Set the SMTP server to send through
+    $mail->Host       = 'premium152.web-hosting.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = '**';                     // SMTP username
-    $mail->Password   = '**';                               // SMTP password
+    $mail->Username   = 'certificados@inteslaeducation.com';                     // SMTP username
+    $mail->Password   = 'cz{6}@23rxWg';                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged //ENCRYPTION_SMTPS
     $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
@@ -39,7 +39,11 @@ try {
     $mail->isHTML(true);                                  // Set email format to HTML
 		$mail->CharSet = 'UTF-8';
 
-		$mail->Subject = 'Certificado Intesla: '.$_POST['nombreCurso'];
+		if($_POST['aTipo']=='1'){
+			$mail->Subject = 'Certificado Intesla del curso: '.$_POST['nombreCurso'];
+		}else{
+			$mail->Subject = 'Certificado Intesla del seminario: '.$_POST['nombreCurso'];
+		}
 		$correo = $cliente;
 		
 		$respuesta = file_get_contents("./plantilla.php" );
@@ -53,6 +57,13 @@ try {
 			$respuesta = str_replace('linkCambiante', 'https://inteslaeducation.com/certificados/certificados/index.php?pers='. base64_encode($_POST['pers']).'&curso='.base64_encode($_POST['idCurso']), $respuesta);
 		}else{
 			$respuesta = str_replace('linkCambiante', 'https://inteslaeducation.com/' , $respuesta);
+		}
+		if($_POST['aTipo']=='1'){
+			$respuesta = str_replace('qCurso', 'Curso' , $respuesta);
+			$respuesta = str_replace('kCurso', 'curso' , $respuesta);
+		}else{
+			$respuesta = str_replace('qCurso', 'Seminario' , $respuesta);
+			$respuesta = str_replace('kCurso', 'seminario' , $respuesta);
 		}
 		
 		$mail->Body    = $respuesta;

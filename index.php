@@ -84,6 +84,7 @@
 		background: rgb(0 224 53 / 95%)!important;
 		color: #1c5d27!important;
 	}
+	tr{cursor:pointer}
 </style>
 
 <div class="container" id="app">
@@ -142,7 +143,7 @@
 						<p class="mb-0 lead">{{resultados[0].aluNombre}}</p>
 						<p class="mb-0">{{resultados[0].curTitulo}}</p>
 						<p class="mb-0">{{resultados[0].aluAsistente}}</p>
-						<p class="mb-0">Nota final: {{resultados[0].nota}}</p>
+						<p v-if="resultados[0].aTipo=='1'" class="mb-0">Nota final: {{resultados[0].nota}}</p>
 						<p class="mb-0">Realizado el: {{resultados[0].curFechaGeneracion}}</p>
 					</div>
 					<div v-if="resultados.length>1">
@@ -159,6 +160,7 @@
 									<td>{{index+1}}</td>
 									<td>{{resultado.aluNombre}}</td>
 									<td>{{resultado.curTitulo}}</td>
+									
 								</tr>
 							</tbody>
 						</table>

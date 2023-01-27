@@ -88,11 +88,16 @@ a[x-apple-data-detectors] {
                   <td valign="top" align="center" style="padding:0;Margin:0;width:560px"> 
                    <table style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;border-bottom:1px solid #EFEFEF" width="100%" cellspacing="0" cellpadding="0" role="presentation"> 
                      <tr style="border-collapse:collapse"> 
-                      <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:15px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:23px;color:#666666">Muchas gracias por haber finalizado con exito nuestro curso.<br/>A continuación le proporcionamos los datos para descargar su certificado:<br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#666666">Alumno: nombreCambiante<br>Curso: cursoCambiante<br>Código: codigoCambiante</p></td> 
+                      <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:15px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:23px;color:#666666">Muchas gracias por haber finalizado con exito nuestro kCurso.<br/>A continuación le proporcionamos los datos para descargar su certificado:<br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#666666">Alumno: nombreCambiante<br>qCurso: cursoCambiante<br>Código: codigoCambiante</p></td> 
                      </tr> 
                      <tr style="border-collapse:collapse"> 
                       <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:30px"><span class="es-button-border" style="border-style:solid;border-color:#FFFFFF;background:#0077c2;border-width:0px;display:inline-block;border-radius:5px;width:auto"><a href="linkCambiante" class="es-button" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#0077c2;border-width:10px 20px 10px 20px;display:inline-block;background:#0077c2;border-radius:5px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center">Ver certificado</a></span></td> 
                      </tr> 
+										 <tr  tyle="border-collapse:collapse">
+											<td  align="center" style="padding:0;Margin:0">
+												<p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:15px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:23px;color:#666666">Puede acceder a <a href="https://inteslaeducation.com/certificados/" target="_blank">https://inteslaeducation.com/certificados/</a> con el código antes brindado para verificar su validez.</p>
+											</td>
+										 </tr>
                     
                    </table></td> 
                  </tr> 
