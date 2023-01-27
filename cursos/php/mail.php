@@ -23,10 +23,10 @@ try {
     //Server settings
     $mail->SMTPDebug = false;                      // Enable verbose debug output --SMTP::DEBUG_SERVER
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'premium152.web-hosting.com';                    // Set the SMTP server to send through
+    $mail->Host       = '';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'certificados@inteslaeducation.com';                     // SMTP username
-    $mail->Password   = 'cz{6}@23rxWg';                               // SMTP password
+    $mail->Username   = '**';                     // SMTP username
+    $mail->Password   = '**';                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged //ENCRYPTION_SMTPS
     $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
