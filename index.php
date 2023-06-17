@@ -92,7 +92,7 @@
 		<div class="col-sm-8 col-md-6 p-4 text-light mt-n5" id="divCentral">
 			<div class="text-center">
 				<!-- <img src="https://inaprof.com/wp-content/uploads/2020/10/LOGOIN_inap.png" class="img-responsive" alt=""> -->
-				<img src="https://inteslaeducation.com/wp-content/uploads/2021/08/logo.svg" class="img-fluid" alt="">
+				<a href="https://inteslaeducation.com/"><img src="https://inteslaeducation.com/wp-content/uploads/2021/08/logo.svg" class="img-fluid" alt=""></a>
 			</div>
 			<h3 class="display-4 text-center">Certificados</h3>
 			<p class="text-center p-3">Rellene su DNI/Código para mostrar su certificado:</p>
@@ -102,9 +102,9 @@
 			<!-- <i id="flechita"></i> -->
 			<input type="text" class="form-control my-3 text-center" id="txtBuscaCertificado" @keypress.enter="buscarCertificado()" v-model="texto" placeholder='' autocomplete="off"> <!-- onkeypress="return soloNuneros(event);" -->
 	
-			<button type="button" class="btn btn-block my-3 text-center py-3" id="btnBuscar" @click="buscarCertificado()" > <span><i class="bi bi-stickies"></i> Verificar certificado</span></button>
+			<button type="button" class="btn btn-block my-3 text-center py-3" id="btnBuscar" @click="buscarCertificado()" > <span><i class="bi bi-stickies"></i> Buscar certificado</span></button>
 			<div class="d-flex justify-content-between">
-				<p><a href="javascript:history.go(-1);" class="text-light"><small><i class="bi bi-chevron-left"></i> Volver atrás</small></a></p>
+				<p><a href="https://inteslaeducation.com/" class="text-light"><small><i class="bi bi-chevron-left"></i> Volver atrás</small></a></p> <!-- javascript:history.go(-1); -->
 				<p><a href="#!" onclick="llamarSesiones();" class="text-light"><small><i class="bi bi-cloud"></i> Iniciar Sesión</small></a></p>
 			</div>
 		</div>
@@ -130,13 +130,14 @@
 	</div>
 	<!-- Modal para mostrar resultados -->
 	<div class="modal fade" id="modalResultados" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true" >
-		<div class="modal-dialog modal-dialog-centered" >
+		<div class="modal-dialog modal-dialog-centered modal-lg" >
 			<div class="modal-content" style="background-color: white; color:#0B2D56">
-				<div class="modal-body p-4">
-					<img src="https://inteslaeducation.com/certificados/imgs/LOGO-INTESLA-2023.png" class="img-fluid w-75">
+				<div class="modal-body px-5 ">
+					<a class="text-center" href="https://inteslaeducation.com/"><img src="https://inteslaeducation.com/certificados/imgs/LOGO-INTESLA-2023.png" class="img-fluid w-75"></a>
 					
 					<div v-if="resultados.length==0">
 						<p>No existen coincidencias con el código o DNI: <strong>{{texto}}</strong></p>
+						<button type="button" class="btn btn-outline-secondary mx-auto mt-2" data-dismiss="modal">Aceptar</button>
 					</div>
 					<div v-if="resultados.length==1">
 						<strong>Intesla Education certifica que:</strong>
@@ -145,6 +146,10 @@
 						<p class="mb-0">{{resultados[0].aluAsistente}}</p>
 						<p v-if="resultados[0].aTipo=='1'" class="mb-0">Nota final: {{resultados[0].nota}}</p>
 						<p class="mb-0">Realizado el: {{resultados[0].curFechaGeneracion}}</p>
+						<div class="d-flex justify-content-between">
+							<button type="button" class="btn btn-outline-secondary mx-auto mt-2" data-dismiss="modal">Aceptar</button>
+							<a type="button" class="btn btn-outline-primary mx-auto mt-2" :href="'https://inteslaeducation.com/certificados/certificados/index.php?codigo='+resultados[0].codEnc" target="_blank" ><i class="bi bi-file-pdf"></i> Ver PDF</a>
+						</div>
 					</div>
 					<div v-if="resultados.length>1">
 						<table class="table table-hover">
@@ -153,6 +158,7 @@
 									<th>N°</th>
 									<th>Nombre</th>
 									<th>Curso</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -160,12 +166,14 @@
 									<td>{{index+1}}</td>
 									<td>{{resultado.aluNombre}}</td>
 									<td>{{resultado.curTitulo}}</td>
+									<td><button class="btn btn-outline-secondary btn-sm border-0"><i class="bi bi-box-arrow-in-right"></i></button></td>
 									
 								</tr>
 							</tbody>
 						</table>
+						<button type="button" class="btn btn-outline-secondary mx-auto mt-2" data-dismiss="modal">Aceptar</button>
 					</div>
-					<button type="button" class="btn btn-secondary mx-auto mt-2" data-dismiss="modal">Aceptar</button>
+					
 
 				</div>
 			

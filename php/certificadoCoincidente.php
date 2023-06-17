@@ -3,7 +3,7 @@ include '../conectkarl.php';
 
 $_POST = json_decode(file_get_contents('php://input'),true); 
 $filas = [];
-$sql="SELECT ac.*, c.curTitulo, date_format(c.curFechaGeneracion, '%d/%m/%Y') as curFechaGeneracion FROM `alumnocurso` ac
+$sql="SELECT ac.*, c.curTitulo, date_format(c.curFechaGeneracion, '%d/%m/%Y') as curFechaGeneracion, TO_BASE64(ac.idAlumno) as codEnc FROM `alumnocurso` ac
 inner join cursos c on c.idCurso = ac.cursoId
 where (aluCodPersonalizado = '{$_POST['texto']}'
 or aluDNI = '{$_POST['texto']}'
